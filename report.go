@@ -66,6 +66,11 @@ type Report struct {
 	ScaleFactor        int64          `json:"scaleFactor"`
 }
 
+type CreateReportResponse struct {
+	ID      int64  `json:"id"`
+	Message string `json:"message"`
+}
+
 // Report fetches and returns a Grafana report.
 func (c *Client) Report(id int64) (*Report, error) {
 	path := fmt.Sprintf("/api/reports/%d", id)
@@ -85,9 +90,7 @@ func (c *Client) NewReport(report Report) (int64, error) {
 		return 0, err
 	}
 
-	result := struct {
-		ID int64
-	}{}
+	var result CreateReportResponse
 
 	err = c.request("POST", "/api/reports", nil, data, &result)
 	if err != nil {

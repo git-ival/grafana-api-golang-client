@@ -15,7 +15,7 @@ type LibraryPanelMetaUser struct {
 
 // LibraryPanelMeta represents Grafana library panel metadata.
 type LibraryPanelMeta struct {
-	FolderName          string               `json:"folderName,,omitempty"`
+	FolderName          string               `json:"folderName,omitempty"`
 	FolderUID           string               `json:"folderUid,omitempty"`
 	ConnectedDashboards int64                `json:"connectedDashboards,omitempty"`
 	Created             time.Time            `json:"created,omitempty"`

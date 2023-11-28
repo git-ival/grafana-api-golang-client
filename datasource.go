@@ -1,7 +1,8 @@
 package gapi
 
 import (
-	"encoding/json"
+	jsonx "github.com/go-json-experiment/json"
+
 	"fmt"
 	"strings"
 )
@@ -9,7 +10,7 @@ import (
 // DataSource represents a Grafana data source.
 type DataSource struct {
 	ID   int64  `json:"id,omitempty"`
-	UID  string `json:"uid,omitempty"`
+	UID  string `json:"uid"`
 	Name string `json:"name"`
 
 	Type string `json:"type"`
@@ -41,7 +42,7 @@ type DataSource struct {
 
 // NewDataSource creates a new Grafana data source.
 func (c *Client) NewDataSource(s *DataSource) (int64, error) {
-	data, err := json.Marshal(s)
+	data, err := jsonx.Marshal(s, defaultJSONOptions()...)
 	if err != nil {
 		return 0, err
 	}
@@ -61,7 +62,7 @@ func (c *Client) NewDataSource(s *DataSource) (int64, error) {
 // UpdateDataSource updates a Grafana data source.
 func (c *Client) UpdateDataSource(s *DataSource) error {
 	path := fmt.Sprintf("/api/datasources/%d", s.ID)
-	data, err := json.Marshal(s)
+	data, err := jsonx.Marshal(s, defaultJSONOptions()...)
 	if err != nil {
 		return err
 	}
@@ -71,7 +72,7 @@ func (c *Client) UpdateDataSource(s *DataSource) error {
 
 func (c *Client) UpdateDataSourceByUID(s *DataSource) error {
 	path := fmt.Sprintf("/api/datasources/uid/%s", s.UID)
-	data, err := json.Marshal(s)
+	data, err := jsonx.Marshal(s, defaultJSONOptions()...)
 	if err != nil {
 		return err
 	}

@@ -44,7 +44,7 @@ func (c *Client) SnapshotFieldToSchemaField(snapshotField SnapshotField) SchemaF
 			Name:   snapshotField.Name,
 			Type:   snapshotField.Type,
 		},
-		TypeInfo: map[string]string{},
+		TypeInfo: map[string]interface{}{},
 	}
 }
 

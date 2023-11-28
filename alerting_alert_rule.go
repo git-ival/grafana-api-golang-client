@@ -58,8 +58,8 @@ const (
 
 // RelativeTimeRange represents the time range for an alert query.
 type RelativeTimeRange struct {
-	From time.Duration `json:"from"`
-	To   time.Duration `json:"to"`
+	From int64 `json:"from"`
+	To   int64 `json:"to"`
 }
 
 // AlertRule fetches a single alert rule, identified by its UID.

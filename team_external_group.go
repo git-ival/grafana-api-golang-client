@@ -9,13 +9,13 @@ import (
 type TeamGroup struct {
 	OrgID   int64  `json:"orgId,omitempty"`
 	TeamID  int64  `json:"teamId,omitempty"`
-	GroupID string `json:"groupID,omitempty"`
+	GroupID string `json:"groupId,omitempty"`
 }
 
 // TeamGroups fetches and returns the list of Grafana team group whose Team ID it's passed.
-func (c *Client) TeamGroups(id int64) ([]TeamGroup, error) {
-	teamGroups := make([]TeamGroup, 0)
-	err := c.request("GET", fmt.Sprintf("/api/teams/%d/groups", id), nil, nil, &teamGroups)
+func (c *Client) TeamGroups(teamId int64) ([]TeamGroup, error) {
+	var teamGroups []TeamGroup
+	err := c.request("GET", fmt.Sprintf("/api/teams/%d/groups", teamId), nil, nil, &teamGroups)
 	if err != nil {
 		return teamGroups, err
 	}
@@ -24,7 +24,7 @@ func (c *Client) TeamGroups(id int64) ([]TeamGroup, error) {
 }
 
 // NewTeamGroup creates a new Grafana Team Group .
-func (c *Client) NewTeamGroup(id int64, groupID string) error {
+func (c *Client) NewTeamGroup(teamId int64, groupID string) error {
 	dataMap := map[string]string{
 		"groupId": groupID,
 	}
@@ -33,7 +33,7 @@ func (c *Client) NewTeamGroup(id int64, groupID string) error {
 		return err
 	}
 
-	return c.request("POST", fmt.Sprintf("/api/teams/%d/groups", id), nil, data, nil)
+	return c.request("POST", fmt.Sprintf("/api/teams/%d/groups", teamId), nil, data, nil)
 }
 
 // DeleteTeam deletes the Grafana team whose ID it's passed.
